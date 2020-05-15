@@ -1,0 +1,7 @@
+C:\SC\Test\AMC-RenameFiles\AMC-RenameFiles\AMC-RenameFiles\bin\Debug\AMC-RenameFiles.exe.config
+C:\SC\Test\AMC-RenameFiles\AMC-RenameFiles\AMC-RenameFiles\bin\Debug\AMC-RenameFiles.exe
+C:\SC\Test\AMC-RenameFiles\AMC-RenameFiles\AMC-RenameFiles\bin\Debug\AMC-RenameFiles.pdb
+C:\SC\Test\AMC-RenameFiles\AMC-RenameFiles\AMC-RenameFiles\obj\Debug\AMC-RenameFiles.csprojAssemblyReference.cache
+C:\SC\Test\AMC-RenameFiles\AMC-RenameFiles\AMC-RenameFiles\obj\Debug\AMC-RenameFiles.csproj.CoreCompileInputs.cache
+C:\SC\Test\AMC-RenameFiles\AMC-RenameFiles\AMC-RenameFiles\obj\Debug\AMC-RenameFiles.exe
+C:\SC\Test\AMC-RenameFiles\AMC-RenameFiles\AMC-RenameFiles\obj\Debug\AMC-RenameFiles.pdb
