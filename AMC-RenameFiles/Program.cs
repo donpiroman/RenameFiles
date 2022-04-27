@@ -34,41 +34,47 @@ namespace AMC_RenameFiles
             string newline;
 
             string startSplit = "_ORIG";
+            string Replacewith = "_ReScan";
+            //string Replacewith = "";
 
 
 
-            if (File.Exists(@"filelist.txt"))
-            {
-                // Read the file and display it line by line.  
-                System.IO.StreamReader file = new System.IO.StreamReader(@"filelist.txt");
-                while ((line = file.ReadLine()) != null)
-                {
-                    //System.Console.WriteLine(line);
-                    if (File.Exists(@""+line))
-                    {
-                        newline = getBetween(line, startSplit, "_ReScan" + Path.GetExtension(line));
-
-                       if ( !Directory.Exists(System.IO.Directory.GetCurrentDirectory()+@"\Procesados"))
-                        {
-                            Directory.CreateDirectory(System.IO.Directory.GetCurrentDirectory() + @"\Procesados");
-                        }
-
-                        File.Move(line, System.IO.Directory.GetCurrentDirectory() + @"\Procesados\" + newline);
-                        
-                        System.Console.WriteLine(line);
-                    }
-                    counter++;
-                }
-
-                file.Close();
-                System.Console.WriteLine("There were {0} lines.", counter);
-                // Suspend the screen.  
-                System.Console.ReadLine();
-            }
-            else
+            if (!File.Exists(@"filelist.txt"))
             {
                 System.Console.WriteLine("Filelist does not exist");
             }
+            // Read the file and display it line by line.  
+            System.IO.StreamReader file = new System.IO.StreamReader(@"filelist.txt");
+            string strExeFilePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string DestPath = strExeFilePath+ "\\Procesados\\";
+
+            while ((line = file.ReadLine()) != null)
+            {
+                string[] filelist = Directory.GetFiles(strExeFilePath, line + "*");
+
+
+                if (File.Exists(@"" + filelist[0]))
+                {
+                    newline = getBetween(filelist[0], startSplit, Replacewith  + Path.GetExtension(filelist[0]));
+
+                    if ( !Directory.Exists(DestPath))
+                    {
+                        Directory.CreateDirectory(DestPath);
+                    }
+
+                    File.Move(filelist[0], Path.Combine(DestPath, Path.GetFileName(newline)));
+                        
+                    System.Console.WriteLine(filelist[0] + " => "+ Path.Combine(DestPath, Path.GetFileName(newline)));
+                }
+                counter++;
+            }
+
+            file.Close();
+            System.Console.WriteLine("There were {0} lines.", counter);
+            // Suspend the screen.  
+            System.Console.ReadLine();
+            
+            
         }
     }
 }
