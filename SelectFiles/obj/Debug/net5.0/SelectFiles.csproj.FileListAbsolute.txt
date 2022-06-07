@@ -1,0 +1,16 @@
+C:\SourceCode\RenameFiles\SelectFiles\bin\Debug\net5.0\SelectFiles.exe
+C:\SourceCode\RenameFiles\SelectFiles\bin\Debug\net5.0\SelectFiles.deps.json
+C:\SourceCode\RenameFiles\SelectFiles\bin\Debug\net5.0\SelectFiles.runtimeconfig.json
+C:\SourceCode\RenameFiles\SelectFiles\bin\Debug\net5.0\SelectFiles.runtimeconfig.dev.json
+C:\SourceCode\RenameFiles\SelectFiles\bin\Debug\net5.0\SelectFiles.dll
+C:\SourceCode\RenameFiles\SelectFiles\bin\Debug\net5.0\ref\SelectFiles.dll
+C:\SourceCode\RenameFiles\SelectFiles\bin\Debug\net5.0\SelectFiles.pdb
+C:\SourceCode\RenameFiles\SelectFiles\obj\Debug\net5.0\SelectFiles.csproj.AssemblyReference.cache
+C:\SourceCode\RenameFiles\SelectFiles\obj\Debug\net5.0\SelectFiles.GeneratedMSBuildEditorConfig.editorconfig
+C:\SourceCode\RenameFiles\SelectFiles\obj\Debug\net5.0\SelectFiles.AssemblyInfoInputs.cache
+C:\SourceCode\RenameFiles\SelectFiles\obj\Debug\net5.0\SelectFiles.AssemblyInfo.cs
+C:\SourceCode\RenameFiles\SelectFiles\obj\Debug\net5.0\SelectFiles.csproj.CoreCompileInputs.cache
+C:\SourceCode\RenameFiles\SelectFiles\obj\Debug\net5.0\SelectFiles.dll
+C:\SourceCode\RenameFiles\SelectFiles\obj\Debug\net5.0\ref\SelectFiles.dll
+C:\SourceCode\RenameFiles\SelectFiles\obj\Debug\net5.0\SelectFiles.pdb
+C:\SourceCode\RenameFiles\SelectFiles\obj\Debug\net5.0\SelectFiles.genruntimeconfig.cache
