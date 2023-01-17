@@ -33,10 +33,10 @@ namespace AMC_RenameFiles
             string line;
             string newline;
 
-            string startSplit = "_ORIG";
+            string startSplit = "ORIG";
             //string startSplit = "";
-            string Replacewith = "_ReScan";
-            //string Replacewith = "";
+            //string Replacewith = "_ReScan";
+            string Replacewith = "ReScan";
 
 
 
