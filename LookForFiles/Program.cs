@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 
 namespace LookForFiles
 {
@@ -9,8 +11,15 @@ namespace LookForFiles
     {
         static async Task Main(string[] args)
         {
-            string rootPath = @"\\ciqsandystor2\CifsData3\Ebilling\ESIS\ACK\History\2023\01\20\";
-            string destPath = @"C:\Users\BSantizo\Desktop\Files\";
+
+            IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, true);
+            IConfigurationRoot root = builder.Build();
+
+            //Console.WriteLine($"Hello, { root["weather"] } world!");
+
+            string rootPath = root["sourcepath"];
+            string destPath = root["destinationpath"];
+            string fileList = root["filelist"];
             //C:\Users\BSantizo\Desktop\Files
             var filesFound = new List<string>(); 
             var filesNotFound = new List<string>();
@@ -19,11 +28,11 @@ namespace LookForFiles
             string line;
             try
             {
-                if (!File.Exists(@"filelist.txt"))
+                if (!File.Exists(fileList))
                 {
                     System.Console.WriteLine("Filelist does not exist");
                 }
-                System.IO.StreamReader file = new System.IO.StreamReader(@"filelist.txt");
+                System.IO.StreamReader file = new System.IO.StreamReader(fileList);
 
                 while ((line = file.ReadLine()) != null)
                 {
@@ -34,7 +43,7 @@ namespace LookForFiles
                         {
                             if (!File.Exists(Path.Combine(destPath, Path.GetFileName(filelist[0]))))
                             {
-                                File.Copy(filelist[0], Path.Combine(destPath, Path.GetFileName(filelist[0])));
+                                File.Copy(filelist[0], Path.Combine(destPath, Path.GetFileName(filelist[0])),true);
                                 filesFound.Add(Path.GetFileName(filelist[0]));
                                 System.Console.WriteLine("File found: " + Path.GetFileName(filelist[0]));
                             }
@@ -50,9 +59,9 @@ namespace LookForFiles
                         System.Console.WriteLine("File not found: " + line);
                     }
                 }
-                await writeFileAsync(filesFound, "FilesFound.txt");
-                await writeFileAsync(filesNotFound, "FilesNotFound.txt");
-                await writeFileAsync(fileAlreadyCopy, "fileAlreadyCopy.txt");
+                await writeFileAsync(filesFound, Path.Combine(Path.GetDirectoryName(fileList),  "FilesFound.txt"));
+                await writeFileAsync(filesNotFound, Path.Combine(Path.GetDirectoryName(fileList), "FilesNotFound.txt"));
+                await writeFileAsync(fileAlreadyCopy, Path.Combine(Path.GetDirectoryName(fileList), "fileAlreadyCopy.txt"));
             }
             catch(Exception ex )
             {
