@@ -36,7 +36,7 @@ namespace LookForFiles
 
                 while ((line = file.ReadLine()) != null)
                 {
-                    string[] filelist = Directory.GetFiles(rootPath, line + "*", SearchOption.AllDirectories);
+                    string[] filelist = Directory.GetFiles(rootPath, line+"*", SearchOption.AllDirectories);
                     if (filelist.Length > 0)
                     {
                         if (File.Exists(filelist[0]))
