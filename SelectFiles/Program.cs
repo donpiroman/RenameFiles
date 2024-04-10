@@ -34,7 +34,7 @@ namespace SelectFiles
                 {
                     if (File.Exists(filelist[0]))
                     {
-                        File.Move(filelist[0], Path.Combine(DestPath, Path.GetFileName(filelist[0])));
+                        File.Copy(filelist[0], Path.Combine(DestPath, Path.GetFileName(filelist[0])));
                         System.Console.WriteLine("File moved:" + filelist[0]);
 
                     }

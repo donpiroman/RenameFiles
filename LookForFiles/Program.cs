@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
@@ -34,25 +36,27 @@ namespace LookForFiles
                 }
                 System.IO.StreamReader file = new System.IO.StreamReader(fileList);
 
+                DirectoryInfo directory = new DirectoryInfo(rootPath);
+                var fileZipList = directory.GetFiles("*.zip").Select(c => c.Name).ToList(); //Directory.GetFiles(rootPath, line, SearchOption.TopDirectoryOnly);
+
                 while ((line = file.ReadLine()) != null)
                 {
-                    string[] filelist = Directory.GetFiles(rootPath, "*"+line+"*", SearchOption.AllDirectories);
-                    if (filelist.Length > 0)
-                    {
-                        if (File.Exists(filelist[0]))
+                    line = line.Trim();
+                    var zipFile = fileZipList.Where(c => c.Contains(line)).FirstOrDefault();
+                    var fullZipFile = Path.Combine(rootPath, zipFile);
+                        if (File.Exists(fullZipFile))
                         {
-                            if (!File.Exists(Path.Combine(destPath, Path.GetFileName(filelist[0]))))
+                            if (!File.Exists(Path.Combine(destPath, Path.GetFileName(fullZipFile))))
                             {
-                                File.Copy(filelist[0], Path.Combine(destPath, Path.GetFileName(filelist[0])),true);
-                                filesFound.Add(Path.GetFileName(filelist[0]));
-                                System.Console.WriteLine("File found: " + Path.GetFileName(filelist[0]));
+                                File.Copy(fullZipFile, Path.Combine(destPath, Path.GetFileName(fullZipFile)),true);
+                                filesFound.Add(Path.GetFileName(fullZipFile));
+                                System.Console.WriteLine("File found: " + Path.GetFileName(fullZipFile));
                             }
                             else
                             {
                                 fileAlreadyCopy.Add(line);
                             }
                         }
-                    }
                     else
                     {
                         filesNotFound.Add(line);
