@@ -27,18 +27,24 @@ namespace SelectFiles
 
             while ((line = file.ReadLine()) != null)
             {
-                line = Path.GetFileNameWithoutExtension(line);
-                System.Console.WriteLine("File:" + line);
-                string[] filelist = Directory.GetFiles(strExeFilePath, line+"*");
-                if (filelist.Length > 0)
+                if (File.Exists(line))
                 {
-                    if (File.Exists(filelist[0]))
-                    {
-                        File.Copy(filelist[0], Path.Combine(DestPath, Path.GetFileName(filelist[0])));
-                        System.Console.WriteLine("File moved:" + filelist[0]);
-
-                    }
+                    File.Copy(line, Path.Combine(DestPath, Path.GetFileName(line)));
+                    System.Console.WriteLine("File moved:" + line);
                 }
+                //line = Path.GetFileNameWithoutExtension(line);
+                //System.Console.WriteLine("File:" + line);
+                //string[] filelist = Directory.GetFiles(strExeFilePath, line+"*");
+               
+                //if (filelist.Length > 0)
+                //{
+                //    if (File.Exists(filelist[0]))
+                //    {
+                //        File.Copy(filelist[0], Path.Combine(DestPath, Path.GetFileName(filelist[0])));
+                //        System.Console.WriteLine("File moved:" + filelist[0]);
+
+                //    }
+                //}
             }
             Console.ReadKey();
         }

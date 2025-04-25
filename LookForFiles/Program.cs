@@ -37,18 +37,28 @@ namespace LookForFiles
                 System.IO.StreamReader file = new System.IO.StreamReader(fileList);
 
                 DirectoryInfo directory = new DirectoryInfo(rootPath);
-                var fileZipList = directory.GetFiles("*.zip").Select(c => c.Name).ToList(); //Directory.GetFiles(rootPath, line, SearchOption.TopDirectoryOnly);
+                //var fileZipList = directory.GetFiles("*.zip",SearchOption.AllDirectories).Select(c => new { c.FullName, c.Name }).ToList(); //Directory.GetFiles(rootPath, line, SearchOption.TopDirectoryOnly);
+                //var fileZipList = directory.GetFiles("*.zip", SearchOption.AllDirectories).ToList(); //Directory.GetFiles(rootPath, line, SearchOption.TopDirectoryOnly);
 
                 while ((line = file.ReadLine()) != null)
                 {
                     line = line.Trim();
-                    var zipFile = fileZipList.Where(c => c.Contains(line)).FirstOrDefault();
-                    var fullZipFile = Path.Combine(rootPath, zipFile);
+                    
+                    var zipFiles = directory.GetFiles($"{line}*.pdf", SearchOption.AllDirectories).Select(c => new { c.FullName, c.Name }).ToList(); //fileZipList.Where(c => c.Name.Contains(line)).ToList();
+                    if (zipFiles.Count <= 0 )
+                    {
+                        filesNotFound.Add(line);
+                        System.Console.WriteLine("File not found: " + line);
+                        continue;
+                    }
+                    foreach (var zipFile in zipFiles)
+                    {
+                        var fullZipFile = zipFile.FullName;  //Path.Combine(rootPath, zipFile);
                         if (File.Exists(fullZipFile))
                         {
                             if (!File.Exists(Path.Combine(destPath, Path.GetFileName(fullZipFile))))
                             {
-                                File.Copy(fullZipFile, Path.Combine(destPath, Path.GetFileName(fullZipFile)),true);
+                                File.Copy(fullZipFile, Path.Combine(destPath, Path.GetFileName(fullZipFile)), true);
                                 filesFound.Add(Path.GetFileName(fullZipFile));
                                 System.Console.WriteLine("File found: " + Path.GetFileName(fullZipFile));
                             }
@@ -57,10 +67,11 @@ namespace LookForFiles
                                 fileAlreadyCopy.Add(line);
                             }
                         }
-                    else
-                    {
-                        filesNotFound.Add(line);
-                        System.Console.WriteLine("File not found: " + line);
+                        else
+                        {
+                            filesNotFound.Add(line);
+                            System.Console.WriteLine("File not found: " + line);
+                        }
                     }
                 }
                 await writeFileAsync(filesFound, Path.Combine(Path.GetDirectoryName(fileList),  "FilesFound.txt"));
